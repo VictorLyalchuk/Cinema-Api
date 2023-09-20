@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
-using BusinessLogic.DTOs;
-using BusinessLogic.Interfaces;
-using DataAccess.Entities;
-using DataAccess.Interfaces;
+using Core.DTOs;
+using Core.Interfaces;
+using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic.Services
+namespace Core.Services
 {
     public class GenreService : IGenreService
     {

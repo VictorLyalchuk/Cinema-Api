@@ -1,8 +1,8 @@
 ﻿using Ardalis.Specification;
-using DataAccess.Entities;
+using Core.Entities;
 using System.Linq.Expressions;
 
-namespace DataAccess.Interfaces
+namespace Core.Interfaces
 {
     public interface IRepository<TEntity> where TEntity : class
     {

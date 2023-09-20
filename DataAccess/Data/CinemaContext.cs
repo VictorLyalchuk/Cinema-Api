@@ -1,11 +1,11 @@
-﻿using DataAccess.Entities;
+﻿using Core.Entities;
 using Microsoft.EntityFrameworkCore;
-using DataAccess.EntitiesConfiguration;
+using Infrastructure.EntitiesConfiguration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DataAccess.Data
+namespace Infrastructure.Data
 {
     public class CinemaContext:DbContext
     {

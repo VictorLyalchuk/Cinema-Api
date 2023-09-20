@@ -1,9 +1,7 @@
-﻿
-using Ardalis.Specification;
-using DataAccess.Entities;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+﻿using Ardalis.Specification;
+using Core.Entities;
 
-namespace BusinessLogic.Specification
+namespace Core.Specification
 {
     public static class MoviesSpecification
     {

@@ -1,7 +1,7 @@
-﻿using BusinessLogic.DTOs;
+﻿using Core.DTOs;
 
 
-namespace BusinessLogic.Interfaces
+namespace Core.Interfaces
 {
     public interface IMovieService
     {

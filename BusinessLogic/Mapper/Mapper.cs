@@ -1,12 +1,12 @@
-﻿using BusinessLogic.DTOs;
-using DataAccess.Entities;
+﻿using Core.DTOs;
+using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic.Mapper
+namespace Core.Mapper
 {
     public class Mapper : AutoMapper.Profile
     {

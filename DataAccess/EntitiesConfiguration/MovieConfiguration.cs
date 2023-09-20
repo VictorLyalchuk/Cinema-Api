@@ -1,9 +1,9 @@
-﻿using DataAccess.Entities;
+﻿using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Reflection.Emit;
 
-namespace DataAccess.EntitiesConfiguration
+namespace Infrastructure.EntitiesConfiguration
 {
     public class MovieConfiguration:IEntityTypeConfiguration<Movie>
     {

@@ -1,7 +1,7 @@
-﻿using BusinessLogic.DTOs;
+﻿using Core.DTOs;
 using FluentValidation;
 
-namespace BusinessLogic.Validations
+namespace Core.Validations
 {
     public class MovieValidation : AbstractValidator<MovieDTO>
     {
