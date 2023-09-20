@@ -1,4 +1,6 @@
-﻿using DataAccess.Entities;
+﻿using BusinessLogic.DTOs;
+using BusinessLogic.Interfaces;
+using DataAccess.Entities;
 using DataAccess.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,41 +11,37 @@ namespace WebApi.Controllers
     [ApiController]
     public class MovieController : ControllerBase
     {
-        private readonly IRepository<Movie> _movieRepository;
-        public MovieController(IRepository<Movie> repository)
+        private readonly IMovieService _movie;
+        public MovieController(IMovieService movie)
         {
-            _movieRepository = repository;
+            _movie = movie;
         }
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _movieRepository.GetAsync(includeProperties: new[] { "Genres"}));
-            //return Ok(await _movieRepository.GetAsync());
+            return Ok(await _movie.GetAllAsync());
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            return Ok(await _movieRepository.GetByIDAsync(id));
+            return Ok(await _movie.GetByIdAsync(id));
         }
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(Movie movie)
+        public async Task<IActionResult> Create(CreateMovieDTO movie)
         {
-            await _movieRepository.InsertAsync(movie);
-            await _movieRepository.SaveAsync();
+            await _movie.CreateAsync(movie);
             return Ok();
         }
         [HttpPut("Edit")]
-        public async Task<IActionResult> Edit(Movie movie)
+        public async Task<IActionResult> Edit(MovieDTO movie)
         {
-            await _movieRepository.UpdateAsync(movie);
-            await _movieRepository.SaveAsync();
+            await _movie.UpdateAsync(movie);
             return Ok();
         }
         [HttpDelete("Delete")]
         public async Task <IActionResult> Delete(int id)
         {
-            await _movieRepository.DeleteAsync(id);
-            await _movieRepository.SaveAsync();
+            await _movie.DeleteAsync(id);
             return Ok();
         }
     }

@@ -1,6 +1,10 @@
+using BusinessLogic.Interfaces;
+using BusinessLogic.Services;
 using DataAccess;
 using DataAccess.Data;
 using DataAccess.Interfaces;
+using FluentValidation.AspNetCore;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
@@ -10,7 +14,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 string connection = builder.Configuration.GetConnectionString("CinemaConnection") ?? throw new InvalidOperationException("Connection string 'CinemaConnection' not found.");
-builder.Services.AddDbContext<CinemaContext>(options => options.UseSqlServer(connection));
+builder.Services.AddDbContext<CinemaContext>(options =>
+{
+    options.UseSqlServer(connection);
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking); //for 
+
+});
 
 // Add services to the container.
 
@@ -19,6 +28,10 @@ builder.Services.AddControllers()
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -29,6 +42,8 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IGenreService, GenreService>();
 
 var app = builder.Build();
 

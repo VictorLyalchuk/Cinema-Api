@@ -1,9 +1,9 @@
-﻿using DataAccess.Data;
-using DataAccess.Entities;
+﻿using Ardalis.Specification.EntityFrameworkCore;
+using Ardalis.Specification;
+using DataAccess.Data;
 using DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-
 
 namespace DataAccess
 {
@@ -45,7 +45,7 @@ namespace DataAccess
                    return query.ToList();
                }
         }
-        public async Task <TEntity>? GetByIDAsync(object id)
+        public async Task <TEntity?> GetByIDAsync(object id)
         {
             return await dbSet.FindAsync(id);
         }
@@ -84,6 +84,19 @@ namespace DataAccess
         public async Task SaveAsync()
         {
             await _context.SaveChangesAsync();
+        }
+        public async Task<IEnumerable<TEntity>> GetListBySpec(Ardalis.Specification.ISpecification<TEntity> specification)
+        {
+            return await ApplySpecification(specification).ToListAsync();
+        }
+        public async Task<TEntity?> GetItemBySpec(Ardalis.Specification.ISpecification<TEntity> specification)
+        {
+            return await ApplySpecification(specification).FirstOrDefaultAsync();
+        }
+        private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> specification)
+        {
+            var evaluator = new SpecificationEvaluator();
+            return evaluator.GetQuery(dbSet, specification);
         }
     }
 }
