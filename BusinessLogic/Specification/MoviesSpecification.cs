@@ -35,5 +35,25 @@ namespace Core.Specification
                     .Where(c => c.Id == ID);
             }
         }
+        public class ByYear : Specification<Movie>
+        {
+            public ByYear()
+            {
+                Query
+                    .Include(c => c.Genres)
+                    .ThenInclude(c => c._Genre)
+                    .OrderBy(c => c.Year);
+            }
+        }
+        public class ByYearDescending : Specification<Movie>
+        {
+            public ByYearDescending()
+            {
+                Query
+                    .Include(c => c.Genres)
+                    .ThenInclude(c => c._Genre)
+                    .OrderByDescending(c => c.Year);
+            }
+        }
     }
 }

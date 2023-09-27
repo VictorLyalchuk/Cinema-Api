@@ -1,5 +1,7 @@
 ﻿using Core.DTOs;
+using Core.DTOs.User;
 using Core.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +19,8 @@ namespace Core.Mapper
             CreateMap<MovieDTO, Movie>();
             
             CreateMap<CreateMovieDTO, Movie>();
+            CreateMap<RegistrationDTO, IdentityUser >();
+            CreateMap<LoginDTO, IdentityUser>();
         }
     }
 }

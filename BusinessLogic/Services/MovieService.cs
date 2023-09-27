@@ -3,6 +3,8 @@ using Core.DTOs;
 using Core.Interfaces;
 using Core.Specification;
 using Core.Entities;
+using System.Net;
+using Core.Helpers;
 
 namespace Core.Services
 {
@@ -19,13 +21,11 @@ namespace Core.Services
         }
         public async Task<List<MovieDTO>> GetAllAsync()
         {
-            //var movies = await _movieRepository.GetAsync(orderBy: m => m.OrderBy(mov => mov.Title), includeProperties: new[] { "Genres" });
             var movies = await _movieRepository.GetListBySpec(new MoviesSpecification.OrderByAllByID());
             return _mapper.Map<List<MovieDTO>>(movies);
         }
         public async Task<MovieDTO?> GetByIdAsync(int id)
         {
-            //var movie = await _movieRepository.GetByIDAsync(id);
             var movie = await _movieRepository.GetItemBySpec(new MoviesSpecification.ByID(id));
             if (movie != null)
             {
@@ -33,7 +33,7 @@ namespace Core.Services
             }
             else
             {
-                return null;
+                throw new CustomHttpException(ErrorMessages.MovieNotFoundByID, HttpStatusCode.NotFound);
             }
         }
         public async Task CreateAsync(CreateMovieDTO movieDTO)
@@ -45,8 +45,7 @@ namespace Core.Services
             {
                 foreach (var genreid in movieDTO.GenreID)
                 {
-                    await _moviegenreRepository
-                        .InsertAsync(
+                    await _moviegenreRepository.InsertAsync(
                     new MovieGenre()
                     {
                         GenreID = genreid,
@@ -69,6 +68,17 @@ namespace Core.Services
             var movie = await _movieRepository.GetByIDAsync(movieDTO.Id);
             if (movie != null)
             {
+                await _moviegenreRepository.DeleteAsync(movie.Id);
+                foreach (var genre in movieDTO.Genres)
+                {
+                    await _moviegenreRepository.InsertAsync(
+                        new MovieGenre
+                        {
+                            GenreID = genre.Id,
+                            MovieID = movie.Id
+                        });
+                    await _moviegenreRepository.SaveAsync();
+                }
                 await _movieRepository.UpdateAsync(movie);
                 await _movieRepository.SaveAsync();
             }
