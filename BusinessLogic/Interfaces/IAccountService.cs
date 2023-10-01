@@ -11,7 +11,7 @@ namespace Core.Interfaces
     public interface IAccountService
     {
         Task<IdentityUser> Get(string id);
-        Task Login(LoginDTO loginDTO);
+        Task<string> Login(LoginDTO loginDTO);
         Task Registration(RegistrationDTO registrationDTO);
         Task Logout();
     }

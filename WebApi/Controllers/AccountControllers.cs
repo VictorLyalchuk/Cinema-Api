@@ -13,7 +13,7 @@ namespace WebApi.Controllers
         {
             _accountService = accountService;
         }
-        [HttpGet("{id:int}")]
+        [HttpGet("{id}")]
         public async Task <IActionResult> Get(string id)
         {
             var user = await _accountService.Get(id);
@@ -32,8 +32,8 @@ namespace WebApi.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
-            await _accountService.Login(loginDTO);
-            return Ok();
+            var response = await _accountService.Login(loginDTO);
+            return Ok(response);
         }
         [HttpPost("Logout")]
         public async Task<IActionResult> Logout()

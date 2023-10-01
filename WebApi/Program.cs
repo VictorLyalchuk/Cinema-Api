@@ -25,6 +25,8 @@ builder.Services.AddAutoMapper();
 
 builder.Services.AddCustomService();
 
+builder.Services.AddAuthenticationWithOptions(builder.Configuration);
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

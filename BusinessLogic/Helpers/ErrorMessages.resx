@@ -123,4 +123,7 @@
   <data name="MovieNotFoundByID" xml:space="preserve">
     <value>Movie by id not found</value>
   </data>
+  <data name="UserNotFoundById" xml:space="preserve">
+    <value>User Not Found By Id</value>
+  </data>
 </root>
