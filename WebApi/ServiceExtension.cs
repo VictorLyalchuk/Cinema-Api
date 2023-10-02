@@ -11,12 +11,36 @@ namespace WebApi
     {
         public static void AddSwaggerGenWithCustomSchema(this IServiceCollection service)
         {
-            service.AddSwaggerGen(options =>
+            service.AddSwaggerGen(option =>
             {
-                options.MapType<TimeSpan>(() => new OpenApiSchema
+                option.MapType<TimeSpan>(() => new OpenApiSchema
                 {
                     Type = "string",
                     Example = new OpenApiString("00:00:00")
+                });
+                //option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
+                option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter a valid token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "Bearer"
+                });
+                option.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                    new OpenApiSecurityScheme
+                        {
+                        Reference = new OpenApiReference
+                            {
+                            Type=ReferenceType.SecurityScheme,
+                            Id="Bearer"
+                            }
+                        },
+                        new string[]{}
+                    }
                 });
             });
         }
@@ -38,7 +62,7 @@ namespace WebApi
                 o.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
-                    ValidateAudience = true,
+                    ValidateAudience = false,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = configuration["Jwt:Issuer"],

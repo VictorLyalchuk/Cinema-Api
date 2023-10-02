@@ -54,7 +54,6 @@ namespace Core.Services
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
             var tokeOptions = new JwtSecurityToken(
                 issuer: jwtOptions.Issuer,
-                audience: jwtOptions.Audience,
                 claims: claimsList,
                 expires: DateTime.Now.AddMinutes(jwtOptions.LifeTime),
                 signingCredentials: signinCredentials
