@@ -54,4 +54,4 @@ jobs:
           app-name: 'Cinema-WebApi'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_45795565FA6C404FBF108AED08C858DE }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BEC752AAD3A348B693A0A91B2248DC7B }}
