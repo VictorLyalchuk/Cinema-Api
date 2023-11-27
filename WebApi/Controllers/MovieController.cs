@@ -34,12 +34,14 @@ namespace WebApi.Controllers
             await _movie.CreateAsync(movie);
             return Ok();
         }
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut("Edit")]
         public async Task<IActionResult> Edit(MovieDTO movie)
         {
             await _movie.UpdateAsync(movie);
             return Ok();
         }
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("Delete")]
         public async Task <IActionResult> Delete(int id)
         {
