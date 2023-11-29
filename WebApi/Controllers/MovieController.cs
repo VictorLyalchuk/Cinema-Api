@@ -39,8 +39,7 @@ namespace WebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Edit(int id, MovieDTO movie)
         {
-            // Оновлення фільму з ідентифікатором id, використовуючи movie
-            movie.Id = id; // Присвоюємо ідентифікатор, переданий у шляху, властивості Id у movie
+            movie.Id = id; 
             await _movie.UpdateAsync(movie);
             return Ok();
         }
