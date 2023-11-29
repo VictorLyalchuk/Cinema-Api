@@ -36,21 +36,19 @@ namespace WebApi.Controllers
             return Ok();
         }
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, MovieDTO movie)
-        {
-            movie.Id = id; 
-            await _movie.UpdateAsync(movie);
-            return Ok();
-        }
-
-
-        //[HttpPut("Edit")]
-        //public async Task<IActionResult> Edit(MovieDTO movie)
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> Edit(int id, MovieDTO movie)
         //{
+        //    movie.Id = id; 
         //    await _movie.UpdateAsync(movie);
         //    return Ok();
         //}
+        [HttpPut("Edit")]
+        public async Task<IActionResult> Edit(MovieDTO movie)
+        {
+            await _movie.UpdateAsync(movie);
+            return Ok();
+        }
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("Delete")]
         public async Task <IActionResult> Delete(int id)
