@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Core.Services;
 
 namespace WebApi.Controllers
 {
@@ -35,12 +36,22 @@ namespace WebApi.Controllers
             return Ok();
         }
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpPut("Edit")]
-        public async Task<IActionResult> Edit(MovieDTO movie)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Edit(int id, MovieDTO movie)
         {
+            // Оновлення фільму з ідентифікатором id, використовуючи movie
+            movie.Id = id; // Присвоюємо ідентифікатор, переданий у шляху, властивості Id у movie
             await _movie.UpdateAsync(movie);
             return Ok();
         }
+
+
+        //[HttpPut("Edit")]
+        //public async Task<IActionResult> Edit(MovieDTO movie)
+        //{
+        //    await _movie.UpdateAsync(movie);
+        //    return Ok();
+        //}
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("Delete")]
         public async Task <IActionResult> Delete(int id)
