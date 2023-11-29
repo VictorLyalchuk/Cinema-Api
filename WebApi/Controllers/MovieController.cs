@@ -27,14 +27,14 @@ namespace WebApi.Controllers
         {
             return Ok(await _movie.GetByIdAsync(id));
         }
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("Create")]
         public async Task<IActionResult> Create(CreateMovieDTO movie)
         {
             await _movie.CreateAsync(movie);
             return Ok();
         }
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut("Edit")]
         public async Task<IActionResult> Edit(MovieDTO movie)
         {
