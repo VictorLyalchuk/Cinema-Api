@@ -50,7 +50,7 @@ namespace WebApi.Controllers
             return Ok();
         }
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpDelete("Delete")]
+        [HttpDelete("{id}")]
         public async Task <IActionResult> Delete(int id)
         {
             await _movie.DeleteAsync(id);

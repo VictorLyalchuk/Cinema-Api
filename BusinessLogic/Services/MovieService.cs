@@ -57,11 +57,10 @@ namespace Core.Services
         }
         public async Task DeleteAsync(int id)
         {
-            if (_movieRepository.GetByIDAsync(id) != null)
-            {
-                await _movieRepository.DeleteAsync(id);
-                await _movieRepository.SaveAsync();
-            }
+            //if (_movieRepository.GetByIDAsync(id) == null)
+            //    return;
+            await _movieRepository.DeleteAsync(id);
+            await _movieRepository.SaveAsync();
         }
         public async Task UpdateAsync(MovieDTO movieDTO)
         {

@@ -20,7 +20,7 @@ namespace Infrastructure
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             params string[] includeProperties)
-            {
+        {
             IQueryable<TEntity> query = dbSet;
             await Task.Run
             (
@@ -36,16 +36,16 @@ namespace Infrastructure
                        query = query.Include(includeProperty);
                    }
                });
-               if (orderBy != null)
-               {
-                   return orderBy(query).ToList();
-               }
-               else
-               {
-                   return query.ToList();
-               }
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            else
+            {
+                return query.ToList();
+            }
         }
-        public async Task <TEntity?> GetByIDAsync(object id)
+        public async Task<TEntity?> GetByIDAsync(object id)
         {
             return await dbSet.FindAsync(id);
         }
@@ -64,12 +64,12 @@ namespace Infrastructure
                 (
                     () =>
                         {
-                        if (_context.Entry(entityToDelete).State == EntityState.Detached)
+                            if (_context.Entry(entityToDelete).State == EntityState.Detached)
                             {
-                             dbSet.Attach(entityToDelete);
+                                dbSet.Attach(entityToDelete);
                             }
-                        dbSet.Remove(entityToDelete);
-                    });
+                            dbSet.Remove(entityToDelete);
+                        });
         }
         public async Task UpdateAsync(TEntity entityToUpdate)
         {
